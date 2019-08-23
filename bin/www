@@ -8,11 +8,12 @@ const app = require('../app');
 const debug = require('debug')('window-nas:server');
 const http = require('http');
 
+const config = require('../config.json');
 /**
  * Get port from environment and store in Express.
  */
 
-const port = '3000';//normalizePort(process.env.PORT || '3000');
+const port = normalizePort(config.server.port || '3000');
 app.set('port', port);
 
 /**

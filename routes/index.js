@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const config = require('../config.json');
 
 const fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  const dir = './file_upload';
+  const dir = config.nas.dir;
   if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
   }
@@ -29,13 +30,13 @@ router.post('/upload', (req, res,) => {
 
   if( Array.isArray(sampleFile) ){
     for( let i=0; i<sampleFile.length; i++ ){
-      sampleFile[i].mv('./file_upload/'+sampleFile[i].name), err => {
+      sampleFile[i].mv('./'+config.nas.dir+'/'+sampleFile[i].name), err => {
         if (err)
           console.log(res.status(500).send(err));
       }
     }
   } else {
-    sampleFile.mv('./file_upload/'+sampleFile.name), err => {
+    sampleFile.mv('./'+config.nas.dir+'/'+sampleFile.name), err => {
       if (err)
       console.log(res.status(500).send(err));
     }
