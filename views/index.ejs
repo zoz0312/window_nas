@@ -16,21 +16,54 @@
         }
       }
       $('#file-list').append(tmp);
+
+      $('#input-file').change(function(){
+        $('#upload-list').empty();
+        const len = $('#input-file')[0].files.length;
+        const fileName = $('#input-file')[0].files[0].name;
+        let tmp = '';
+        
+        for( let i=0; i<len; i++ ){
+          tmp += '<span class="list-group-item list-group-item-action disabled">'+$('#input-file')[0].files[i].name+'</span>';
+        }
+        $('#upload-list').append(tmp);
+
+        if( len <= 1 ){
+          $('#file-label').text(fileName);
+        } else {
+          $('#file-label').text(fileName+' 외 '+(len-1)+'개');
+        }
+      });
+
     });
   </script>
   </head>
   <body>
     <div class="container">
-      <h1><%= title %></h1>
-      <p>Welcome to <%= title %></p>
-      <form ref='uploadForm' 
+        <form ref='uploadForm' 
         id='uploadForm' 
         action='http://localhost:3000/upload' 
         method='post' 
-        encType="multipart/form-data">
-          <input type="file" name="sampleFile" multiple>
-          <button type='submit'>업로드</button>
+        encType="multipart/form-data"
+        class="mb-5">
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" name="sampleFile" class="custom-file-input" id="input-file" aria-describedby="input-file-addon" multiple>
+          <label id="file-label" class="custom-file-label" for="input-file">Choose file</label>
+        </div>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit" id="input-file-addon">업로드</button>
+        </div>
+        </div>
       </form>
+      <div class="border border-info rounded-lg mb-3 p-2">
+        <h2>upload list</h2>
+        <div id="upload-list" class="list-group">
+
+        </div>
+      </div>
+
+      
       <div id="file-list" class="list-group">
 
       </div>

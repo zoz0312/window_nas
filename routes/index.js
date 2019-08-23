@@ -11,8 +11,6 @@ router.get('/', function(req, res, next) {
   }
   const files = fs.readdirSync(dir); // 디렉토리를 읽어온다
 
-  console.log('files',files);
-
   res.render('index', { 
     title: 'Express',
     files
