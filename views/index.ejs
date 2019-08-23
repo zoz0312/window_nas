@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html>
   <% include ./head %>
+  <script>
+    $( document ).ready(()=>{
+      let files = '<%= JSON.stringify(files) %>';
+      files = files.replace(/&#34;/gi, '\"');
+      files = JSON.parse(files);
+
+      let tmp = '';
+      for( let i=0; i<files.length; i++ ){
+        tmp += '<a href="/file_upload/'+files[i]+'" class="list-group-item list-group-item-action" download>'+files[i]+'</a>';
+      }
+      $('#file-list').append(tmp);
+    });
+  </script>
+  </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="container">
+      <h1><%= title %></h1>
+      <p>Welcome to <%= title %></p>
+      <form ref='uploadForm' 
+        id='uploadForm' 
+        action='http://localhost:3000/upload' 
+        method='post' 
+        encType="multipart/form-data">
+          <input type="file" name="sampleFile" multiple>
+          <button type='submit'>업로드</button>
+      </form>
+      <div id="file-list" class="list-group">
+
+      </div>
+    </div>
   </body>
 </html>
