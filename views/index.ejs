@@ -8,8 +8,12 @@
       files = JSON.parse(files);
 
       let tmp = '';
-      for( let i=0; i<files.length; i++ ){
-        tmp += '<a href="/file_upload/'+files[i]+'" class="list-group-item list-group-item-action" download>'+files[i]+'</a>';
+      if( files.length === 0 ){
+        tmp += '<span class="list-group-item list-group-item-action disabled">파일이 존재하지 않습니다.</span>';
+      } else {
+        for( let i=0; i<files.length; i++ ){
+          tmp += '<a href="/file_upload/'+files[i]+'" class="list-group-item list-group-item-action" download>'+files[i]+'</a>';
+        }
       }
       $('#file-list').append(tmp);
     });

@@ -6,6 +6,9 @@ const fs = require('fs');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const dir = './file_upload';
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
   const files = fs.readdirSync(dir); // 디렉토리를 읽어온다
 
   console.log('files',files);
